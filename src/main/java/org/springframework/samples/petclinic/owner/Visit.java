@@ -54,8 +54,10 @@ public class Visit extends BaseEntity {
 	}
 
 	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    if (date != null && !date.isBefore(this.date)) {
+        this.date = date;
+    }
+}
 
 	public String getDescription() {
 		return this.description;
