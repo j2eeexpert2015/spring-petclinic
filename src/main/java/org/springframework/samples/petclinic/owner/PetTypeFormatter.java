@@ -56,6 +56,11 @@ public class PetTypeFormatter implements Formatter<PetType> {
 				return type;
 			}
 		}
+		// Pets imported from the old clinic system have no type. Fall back to the
+		// first available type instead of rejecting the whole form.
+		if (!findPetTypes.isEmpty()) {
+			return findPetTypes.iterator().next();
+		}
 		throw new ParseException("type not found: " + text, 0);
 	}
 

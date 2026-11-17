@@ -68,8 +68,15 @@ class PetTypeFormatterTests {
 	}
 
 	@Test
-	void shouldThrowParseException() throws ParseException {
+	void shouldFallBackToFirstTypeWhenUnknown() throws ParseException {
 		given(this.pets.findPetTypes()).willReturn(makePetTypes());
+		PetType petType = petTypeFormatter.parse("Fish", Locale.ENGLISH);
+		assertThat(petType.getName()).isEqualTo("Dog");
+	}
+
+	@Test
+	void shouldThrowParseExceptionWhenNoTypesExist() throws ParseException {
+		given(this.pets.findPetTypes()).willReturn(new ArrayList<>());
 		Assertions.assertThrows(ParseException.class, () -> {
 			petTypeFormatter.parse("Fish", Locale.ENGLISH);
 		});

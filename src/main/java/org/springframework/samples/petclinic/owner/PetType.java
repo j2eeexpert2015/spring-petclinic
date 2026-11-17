@@ -27,4 +27,13 @@ import jakarta.persistence.Table;
 @Table(name = "types")
 public class PetType extends NamedEntity {
 
+	@Override
+	public String toString() {
+		String name = getName();
+		if (name == null || name.isEmpty()) {
+			return name;
+		}
+		return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+	}
+
 }
